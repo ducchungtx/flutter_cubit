@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cubit/misc/colors.dart';
 import 'package:flutter_cubit/widgets/app_large_text.dart';
+import 'package:flutter_cubit/widgets/app_text.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -74,16 +75,61 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ),
       ),
       Container(
+        margin: const EdgeInsets.only(left: 20),
         height: 300,
         width: double.maxFinite,
         child: TabBarView(
           controller: _tabController,
           children: [
-            Text("Hi"),
+            ListView.builder(
+              itemCount: 3,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  margin: const EdgeInsets.only(right: 15, top: 10),
+                  width: 200,
+                  height: 300,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      image: DecorationImage(
+                          image: AssetImage(
+                            "img/mountain.jpeg",
+                          ),
+                          fit: BoxFit.cover)),
+                );
+              },
+            ),
             Text("There"),
             Text("Bye"),
           ],
         ),
+      ),
+      SizedBox(height: 30),
+      Container(
+        margin: const EdgeInsets.only(left: 20, right: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            AppLargeText(
+              text: "Explore more",
+              size: 22,
+            ),
+            AppText(
+              text: "See all",
+              color: AppColors.textColor1,
+            ),
+          ],
+        ),
+      ),
+      SizedBox(height: 20),
+      Container(
+        margin: const EdgeInsets.only(left: 20),
+        child: ListView.builder(itemBuilder: (_, index) {
+          return Column(
+            children: [],
+          );
+        }),
       )
     ]));
   }
