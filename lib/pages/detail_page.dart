@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cubit/misc/colors.dart';
+import 'package:flutter_cubit/widgets/app_large_text.dart';
+import 'package:flutter_cubit/widgets/app_text.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({Key? key}) : super(key: key);
@@ -8,6 +11,8 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  int gottenStars = 3;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +48,69 @@ class _DetailPageState extends State<DetailPage> {
                 ],
               ),
             ),
-            Positioned(top: 330, child: Container())
+            Positioned(
+                top: 330,
+                child: Container(
+                  padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+                  width: MediaQuery.of(context).size.width,
+                  height: 500,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                  ),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            AppLargeText(
+                                text: "Yosemite",
+                                color: Colors.black.withOpacity(0.8)),
+                            AppLargeText(
+                              text: "\$250",
+                              color: AppColors.mainColor,
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.location_on,
+                              color: AppColors.mainColor,
+                            ),
+                            SizedBox(width: 5),
+                            AppText(
+                              text: "USA, California",
+                              color: AppColors.mainColor,
+                            )
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          children: [
+                            Wrap(
+                                children: List.generate(5, (index) {
+                              return Icon(Icons.star,
+                                  color: index < gottenStars
+                                      ? AppColors.starColor
+                                      : AppColors.textColor2);
+                            })),
+                            AppText(text: "(4.0)")
+                          ],
+                        ),
+                        SizedBox(height: 25),
+                        AppLargeText(
+                          text: "People",
+                          color: Colors.black.withOpacity(0.8),
+                        ),
+                        SizedBox(height: 10),
+                      ]),
+                ))
           ],
         ),
       ),
