@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cubit/misc/colors.dart';
+import 'package:flutter_cubit/widgets/app_buttons.dart';
 import 'package:flutter_cubit/widgets/app_large_text.dart';
 import 'package:flutter_cubit/widgets/app_text.dart';
+import 'package:flutter_cubit/widgets/responsive_button.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({Key? key}) : super(key: key);
@@ -12,6 +14,7 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   int gottenStars = 3;
+  int selectedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +57,7 @@ class _DetailPageState extends State<DetailPage> {
                   padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
                   width: MediaQuery.of(context).size.width,
                   height: 500,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
@@ -107,10 +110,72 @@ class _DetailPageState extends State<DetailPage> {
                         AppLargeText(
                           text: "People",
                           color: Colors.black.withOpacity(0.8),
+                          size: 20,
+                        ),
+                        SizedBox(height: 5),
+                        AppText(
+                          text: "Number of people in your group",
+                          color: AppColors.mainTextColor,
+                        ),
+                        SizedBox(height: 20),
+                        Wrap(
+                          children: List.generate(5, (index) {
+                            return InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selectedIndex = index;
+                                });
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.only(right: 10),
+                                child: AppButtons(
+                                    text: "${index + 1}",
+                                    size: 50,
+                                    color: selectedIndex == index
+                                        ? Colors.white
+                                        : Colors.black,
+                                    backgroundColor: selectedIndex == index
+                                        ? Colors.black
+                                        : AppColors.buttonBackground,
+                                    borderColor: selectedIndex == index
+                                        ? Colors.black
+                                        : AppColors.buttonBackground),
+                              ),
+                            );
+                          }),
+                        ),
+                        SizedBox(height: 20),
+                        AppLargeText(
+                          text: "Description",
+                          color: Colors.black.withOpacity(0.8),
+                          size: 20,
                         ),
                         SizedBox(height: 10),
+                        AppText(
+                          text:
+                              "You must go for a travel. Travelling helps get rid of pressure. Go to the mountains to see the nature.",
+                          color: AppColors.mainTextColor,
+                        )
                       ]),
-                ))
+                )),
+            Positioned(
+              bottom: 20,
+              left: 20,
+              right: 20,
+              child: Row(children: [
+                AppButtons(
+                    size: 60,
+                    color: AppColors.textColor1,
+                    backgroundColor: Colors.white,
+                    borderColor: AppColors.textColor1,
+                    isIcon: true,
+                    icon: Icons.favorite_border),
+                SizedBox(width: 20),
+                ResponsiveButton(
+                  isResponsive: true,
+                )
+              ]),
+            )
           ],
         ),
       ),
